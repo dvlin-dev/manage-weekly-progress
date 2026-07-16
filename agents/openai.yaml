@@ -1,0 +1,4 @@
+interface:
+  display_name: "Weekly Progress for Apple Notes"
+  short_description: "Track weekly progress with Notes and reminders"
+  default_prompt: "Use $manage-weekly-progress to record, review, and roll over my weekly progress."
