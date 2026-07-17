@@ -72,7 +72,7 @@ The skill is implemented under `skill-creator` constraints. A Python CLI owns th
 - [x] Wrote and tested repeatable Notes, Reminders, and Calendar operation scripts.
 - [x] Completed `SKILL.md` and `agents/openai.yaml`.
 - [x] Ran structure validation, unit tests, and the real-app forward test on the current Mac.
-- [x] Prepared skills.sh publishing content; actual publishing awaits separate user authorization.
+- [x] Published to skills.sh with user authorization; the installed copy passed a real forward test (doctor, capture, review) in a cleaned-up QA folder.
 
 ## Implementation conclusions
 
@@ -81,7 +81,7 @@ The skill is implemented under `skill-creator` constraints. A Python CLI owns th
 - Notes uses visible managed markers plus optimistic concurrency validation to protect manual content; duplicate titles, malformed markers, or concurrent body changes stop safely.
 - Reminders uses stable list IDs; Calendar uses a random ownership token written into the description; both sync only key milestones with explicit times.
 - Explicit keys persist in visible Notes timing metadata, so rollover, update, completion, and deletion keep the same notification identity.
-- Actual skills.sh publishing was not executed here and still requires explicit user authorization.
+- The skill is published on skills.sh as `dvlin-dev/manage-weekly-progress`; distribution facts live in `../reference/repository-context.md`.
 
 ## Closed design questions
 

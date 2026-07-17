@@ -33,7 +33,8 @@ Apple Notes is the only persistent store for progress in the MVP. The skill driv
 
 - The repository name, skill directory name, and frontmatter `name` are all `manage-weekly-progress`.
 - Skill code, metadata, platform references, automated tests, and live tests are release-ready.
-- Publishing to skills.sh is an external state change and requires separate, explicit user authorization.
+- The skill is listed on skills.sh as `dvlin-dev/manage-weekly-progress` and installs via `npx skills add dvlin-dev/manage-weekly-progress`.
+- skills.sh has no separate upload or versioning flow: pushing to `main` ships an update, and installed users pull it with `npx skills update`. Tag the repository to offer pinned installs.
 
 ## Read next
 
