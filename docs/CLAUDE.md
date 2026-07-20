@@ -36,4 +36,5 @@
 - Repository positioning and boundaries: `reference/repository-context.md`
 - Collaboration, commits, and delivery: `reference/collaboration-and-delivery.md`
 - Weekly progress management core design: `design/core/weekly-progress-management.md`
+- Local skill source-dimension pre-read: `plans/2026-07-20-local-skill-source-dimensions.md`
 - Initial design and next-phase to-dos: `plans/2026-07-16-initial-skill-design.md`

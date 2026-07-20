@@ -21,7 +21,7 @@ It fits work as well as personal development, learning, and other long-running e
 
 - The MVP uses Apple Notes as the only persistent source of truth for weekly progress and relies on iCloud to sync across devices signed into the same Apple account; macOS Reminders and Calendar act only as an optional notification layer, never as a second progress store.
 - A week is the independent management unit; dates are the primary recording dimension. Weekly goals and the weekly summary are auxiliary structures.
-- The skill updates progress only from information the user explicitly provides or that is verifiable in the current agent context; it does not claim to read the full history of every AI IDE automatically.
+- The skill updates progress only from information the user explicitly provides or that is verifiable after a hard pre-read of local skill source dimensions and the materials actually read this turn; it does not claim to read the full history of every AI IDE automatically.
 - Writes must protect content the user edited by hand; only the explicitly managed region may be modified.
 - The skill may operate automatically inside Notes folders, Reminders lists, and Calendars that it created and registered itself; it must not automatically modify objects whose ownership is unclear or that the user manages.
 - No cloud services, databases, or separate account systems are introduced.
@@ -33,7 +33,8 @@ It fits work as well as personal development, learning, and other long-running e
 - Repository context: `docs/reference/repository-context.md`
 - Collaboration and delivery: `docs/reference/collaboration-and-delivery.md`
 - Adopted product design: `docs/design/core/weekly-progress-management.md`
-- Current design and handoff: `docs/plans/2026-07-16-initial-skill-design.md`
+- Source-dimension pre-read: `docs/plans/2026-07-20-local-skill-source-dimensions.md` and `references/source-dimensions.md`
+- Initial design and handoff: `docs/plans/2026-07-16-initial-skill-design.md`
 
 ## Collaboration rules
 

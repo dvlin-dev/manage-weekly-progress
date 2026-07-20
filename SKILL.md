@@ -7,6 +7,18 @@ description: Manage personal weekly progress on macOS using Apple Notes as the s
 
 Keep one Apple Note per ISO week. Write only verified facts, protect content outside the managed region, and create notifications only from explicit time information.
 
+## Expand local source dimensions first
+
+Before gathering evidence or writing for `capture`, `review`, `rollover`, or equivalent user intent (for example “整理本周并同步备忘录”), complete this hard pre-read:
+
+1. List locally visible agent skills by reading their `SKILL.md` descriptions in the current environment’s skill directories.
+2. Map those capabilities onto the fixed general dimensions in [references/source-dimensions.md](references/source-dimensions.md).
+3. Mark dimensions 6–12 as available only when a matching local skill or readable local cache exists. Dimensions 1–5 are always in scope.
+4. Pre-read the capability boundaries of skills that unlock available dimensions. This is orientation only—it does not by itself fetch or invent progress facts.
+5. Then collect facts that the user explicitly supplied or that are verifiable in materials actually read this turn. Skip available dimensions that yield no evidence; do not fabricate items to fill them.
+
+Do not hard-code one machine’s skill list. Do not treat “skill installed” as “fact obtained.” Invoking another skill still follows that skill’s own triggers when verification needs it.
+
 ## Locate the CLI
 
 Resolve the directory containing this `SKILL.md` as `SKILL_DIR`, then run:
@@ -31,12 +43,13 @@ When the config is readable, `doctor` also returns a `context` object with `toda
 
 ## Capture or update progress
 
-1. Extract only facts explicitly supplied by the user or verifiable in the current agent context.
-2. Classify facts as `goals`, `completed`, `next`, `blocked`, `follow_up`, or `summary`.
-3. Include `due_at` only when the source provides a clear time. Require an ISO 8601 timezone offset.
-4. Use a reminder for a deadline or action at one time. Use Calendar only when both a start and end are explicit.
-5. Reuse an explicit stable `key` when updating or completing an item that owns a notification.
-6. Write the JSON to a temporary file and call `capture`.
+1. Complete [Expand local source dimensions first](#expand-local-source-dimensions-first).
+2. Extract only facts explicitly supplied by the user or verifiable in the materials read this turn after that pre-read.
+3. Classify facts as `goals`, `completed`, `next`, `blocked`, `follow_up`, or `summary`.
+4. Include `due_at` only when the source provides a clear time. Require an ISO 8601 timezone offset.
+5. Use a reminder for a deadline or action at one time. Use Calendar only when both a start and end are explicit.
+6. Reuse an explicit stable `key` when updating or completing an item that owns a notification.
+7. Write the JSON to a temporary file and call `capture`.
 
 ```bash
 python3 "$SKILL_DIR/scripts/manage_weekly_progress.py" capture --input /tmp/weekly-progress-capture.json
@@ -54,17 +67,19 @@ Read [references/input-schema.md](references/input-schema.md) before constructin
 
 ## Review a week
 
+Complete [Expand local source dimensions first](#expand-local-source-dimensions-first) before summarizing beyond the Notes `review` payload when the user asks what they did, what remains open, or what should roll forward.
+
 Use ISO `YYYY-Www` weeks. Review is read-only and does not initialize a missing folder:
 
 ```bash
 python3 "$SKILL_DIR/scripts/manage_weekly_progress.py" review --week 2026-W29
 ```
 
-Summarize the returned structured state. Do not infer work from unrelated notes or other IDE histories.
+Summarize the returned structured state together with any additional facts verified after the source-dimension pre-read. Do not infer work from unread sources or other IDE histories.
 
 ## Roll open items forward
 
-Review the source week first. Confirm from the available facts that the open goals, next steps, blockers, and follow-ups are still relevant, then run:
+Complete [Expand local source dimensions first](#expand-local-source-dimensions-first). Review the source week first. Confirm from the available facts that the open goals, next steps, blockers, and follow-ups are still relevant, then run:
 
 ```bash
 python3 "$SKILL_DIR/scripts/manage_weekly_progress.py" rollover --from-week 2026-W29 --to-week 2026-W30

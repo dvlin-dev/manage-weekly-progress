@@ -58,10 +58,10 @@ Dated records are the core; empty sections should not create noise just to compl
 
 The MVP includes four capabilities:
 
-1. `capture`: extract confirmable progress from user input, the current conversation, code-change summaries, or meeting notes.
+1. `capture`: after the local skill source-dimension pre-read, extract confirmable progress from user input, the current conversation, workspace artifacts, and any other dimensions that are both available locally and actually read this turn.
 2. `update`: create or update this week's note, maintaining done items, next steps, blockers, and follow-ups, and sync skill-managed reminders or calendar events by rule.
-3. `review`: summarize the day's or week's progress, unfinished items, and risks.
-4. `rollover`: carry still-valid open items into the next week while preserving the source week's history.
+3. `review`: after the same pre-read when summarizing beyond Notes alone, summarize the day's or week's progress, unfinished items, and risks.
+4. `rollover`: after the same pre-read, carry still-valid open items into the next week while preserving the source week's history.
 
 The skill must cover requests such as:
 
@@ -75,7 +75,9 @@ The skill must cover requests such as:
 ## 5. Data flow and platform boundaries
 
 ```text
-User / current agent context
+Hard pre-read of local skill capabilities
+  → Map onto fixed general source dimensions
+  → User / materials actually read this turn
   → Skill extracts structured progress
   → macOS scripts re-read the target Apple Note
   → Update the skill-managed region
@@ -86,8 +88,11 @@ User / current agent context
 
 - Write capability runs on macOS; iOS is not required to execute the skill.
 - iCloud is the sync layer and carries no business logic.
-- The skill does not automatically access other IDEs' full history; only context the current agent can read and the user allows may be used as input.
+- Before capture, review, or rollover evidence work, the agent must scan locally installed skills and map them to a fixed baseline of general source dimensions (user turn, conversation, workspace artifacts, this week’s Notes, local skill descriptions, meetings, email, tasks/cards, code review/repo activity, knowledge bases, IM/group chat, local knowledge caches). Dimensions beyond the always-on set are considered only when a matching local skill or readable cache exists.
+- That pre-read is orientation only: “skill present” is not “fact obtained.” Writes still require user-explicit or currently verifiable facts from materials actually read this turn.
+- The skill does not automatically access other IDEs' full history; it does not hard-code one machine’s skill list or maintain a vendor-specific skill registry.
 - Progress storage backends beyond Apple Notes are out of MVP scope; Reminders and Calendar are notification outlets only.
+- Details live in the skill package `references/source-dimensions.md` and `docs/plans/2026-07-20-local-skill-source-dimensions.md`.
 
 ## 6. Write safety
 
@@ -130,6 +135,7 @@ User / current agent context
 - Automatically monitoring and collecting all AI IDE conversations.
 - Building an independent cloud sync service or database.
 - Multi-user collaborative editing and conflict merging.
-- Integration with project management platforms, time tracking, or performance systems.
+- Building first-party adapters into project management, mail, or knowledge platforms as progress stores.
 - Supporting Notion, Markdown, Google Docs, or other backends in the first version.
 - Growing Reminders or Calendar into a second weekly progress, task management, or scheduling system.
+- Shipping a CLI that inventories skills or maintaining a per-environment dimension→skill whitelist.
